@@ -9,7 +9,7 @@ import (
  "time"
 )
 
-// Константы для размера игрового поля и начальных параметров
+// константы для размера игрового поля и начальных параметров
 const (
  boardSize     = 10  // Размер поля 10x10
  initialHealth = 100 // Начальное здоровье
@@ -18,7 +18,7 @@ const (
  numHazards    = 8   // Количество опасностей на поле
 )
 
-// Структура игрока
+// ктруктура игрока
 type Player struct {
  X      int // Координата X
  Y      int // Координата Y
@@ -26,12 +26,12 @@ type Player struct {
  Moves  int // Количество ходов
 }
 
-// Структура игры
+// структура игры
 type Game struct {
  Board  [][]rune // Двумерный массив, представляющий игровое поле
- Player Player   // Объект игрока
- ExitX  int      // Координата X выхода
- ExitY  int      // Координата Y выхода
+ Player Player  // Объект игрока
+ ExitX  int  // Координата X выхода
+ ExitY  int  // Координата Y выхода
 }
 
 // initializeBoard инициализирует игровое поле, размещает игрока, выход, ресурсы и опасности
@@ -45,18 +45,18 @@ func (g *Game) initializeBoard() {
   }
  }
 
- // Инициализируем генератор случайных чисел
+ // инициализируем генератор случайных чисел
  rand.Seed(time.Now().UnixNano())
 
- // Размещаем игрока в случайном месте
+ // размещаем игрока в рандомном месте
  g.Player = Player{
   Health: initialHealth,
   Moves:  initialMoves,
  }
  g.Player.X, g.Player.Y = rand.Intn(boardSize), rand.Intn(boardSize)
- // Важно: на самом поле клетка игрока не меняется, 'X' отрисовывается сверху в printBoard
+ // важно: на самом поле клетка игрока не меняется, 'X' отрисовывается сверху в printBoard
 
- // Размещаем выход
+ // размещаем выход
  for {
   x, y := rand.Intn(boardSize), rand.Intn(boardSize)
   if g.Board[x][y] == ' ' && (x != g.Player.X || y != g.Player.Y) { // Убеждаемся, что клетка пуста и не занята игроком
@@ -66,7 +66,7 @@ func (g *Game) initializeBoard() {
   }
  }
 
- // Размещаем ресурсы
+ // размещаем ресурсы
  for i := 0; i < numResources; i++ {
   for {
    x, y := rand.Intn(boardSize), rand.Intn(boardSize)
@@ -77,7 +77,7 @@ func (g *Game) initializeBoard() {
   }
  }
 
- // Размещаем опасности
+ // растоновка опасности
  for i := 0; i < numHazards; i++ {
   for {
    x, y := rand.Intn(boardSize), rand.Intn(boardSize)
@@ -120,13 +120,13 @@ func (g *Game) movePlayer(dx, dy int) string {
 
  g.Player.Moves-- // Каждый ход расходует 1 очко хода
 
- // Получаем содержимое новой клетки
+ // получаем содержимое новой клетки
  cellContent := g.Board[newX][newY]
 
- // Обновляем позицию игрока
+ // обнова нашей позиции
  g.Player.X, g.Player.Y = newX, newY
 
- // Обрабатываем взаимодействие с содержимым клетки
+ // обрабатываем взаимодействие с содержимым клетки
  switch cellContent {
  case 'R':
   g.Player.Moves += 5
@@ -143,7 +143,7 @@ func (g *Game) movePlayer(dx, dy int) string {
  }
 }
 
-// checkGameOver проверяет, не закончилась ли игра
+// чек закончена ли игра иль нет
 func (g *Game) checkGameOver() (bool, string) {
  if g.Player.Health <= 0 {
   return true, "Игра Окончена! У вас закончилось здоровье."
@@ -196,3 +196,6 @@ func main() {
  }
 }
 
+// компиляция для самых маленьких
+// go build (название файла)+.go
+// над мини проектом работает Dr0n
